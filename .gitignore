@@ -15,7 +15,7 @@ backend/*.pyc
 backend/*.pyo
 backend/*.pyd
 backend/env/
-backend/venv/  # Explicitly exclude venv folder
+backend/venv/
 backend/.env
 backend/.venv
 backend/instance/

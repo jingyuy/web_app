@@ -1,21 +1,21 @@
-# Use an official Node.js runtime as a parent image
+# Use Node.js base image
 FROM node:16
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json .
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install
 
 # Copy the application code
 COPY . .
 
-# Build the React app
 RUN npm run build
-
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Serve the React app
+# Start the React app using npx serve
 CMD ["npx", "serve", "-s", "build", "-l", "3000"]

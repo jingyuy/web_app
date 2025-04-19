@@ -7,7 +7,7 @@ function HomePage() {
 
   useEffect(() => {
     // Replace with your actual backend URL
-    const backendUrl = "http://localhost:8000/home";
+    const backendUrl = process.env.REACT_APP_BACKEND_URL + "/home";
     const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
 
     if (!token) {

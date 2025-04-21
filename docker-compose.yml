@@ -19,6 +19,8 @@ services:
       POSTGRES_DB: jingyuyan
     ports:
       - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data # Mount volume for persistence
 
   frontend:
     build:
@@ -32,3 +34,5 @@ services:
     depends_on:
       - backend
 
+volumes:
+    db_data: # Define th      

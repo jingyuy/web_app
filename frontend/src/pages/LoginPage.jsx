@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+    const { login } = useAuth(); // Get login function from AuthContext
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
-
+        const backendUrl = process.env.REACT_APP_BACKEND_URL + "/login";
         try {
-            const response = await fetch(process.env.REACT_APP_BACKEND_URL + '/login', {
+            const response = await fetch(backendUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,15 +26,15 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('authToken', data.token); // Store token in local storage
-                setSuccess(data.message); // Display success message
-                navigate('/home'); // Redirect to the home page
+                login(data.token); // Update isAuthenticated via AuthContext
+                setSuccess(data.message);
+                navigate('/home');
             } else {
                 const errorData = await response.json();
-                setError(errorData.detail); // Display error message
+                setError(errorData.detail);
             }
         } catch (err) {
-            setError('An error occurred. Please try again.');
+            setError('An error occurred. Please try again.' + err);
         }
     };
 

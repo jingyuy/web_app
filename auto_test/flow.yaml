@@ -1,0 +1,19 @@
+# Sample Maestro flow for web app automation
+url: "http://localhost:3000/"
+---
+
+- launchApp
+- tapOn:
+    id: "email"
+    index: 1
+- inputText: "test@example.com"
+- tapOn:
+    id: "password"
+    index: 1
+- inputText: "password123"
+- tapOn:
+    text: "Login"
+    index: 1
+- extendedWaitUntil:
+    visible: "Welcome to the Home Page"
+    timeout: 20000

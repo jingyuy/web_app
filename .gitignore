@@ -1,10 +1,7 @@
 # Node.js (React frontend)
 frontend/node_modules/
 frontend/build/
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+frontend/.env.*
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
@@ -16,7 +13,7 @@ backend/*.pyo
 backend/*.pyd
 backend/env/
 backend/venv/
-backend/.env
+backend/.env.*
 backend/.venv
 backend/instance/
 backend/.mypy_cache/

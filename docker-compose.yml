@@ -4,10 +4,8 @@ services:
       context: ./backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/jingyuyan
+    env_file:
+      - ./backend/.env.production
     depends_on:
       - db
 
@@ -27,12 +25,8 @@ services:
       context: ./frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8000
     depends_on:
       - backend
 
 volumes:
-    db_data: # Define th      
+  db_data: # Define the db data volumes      

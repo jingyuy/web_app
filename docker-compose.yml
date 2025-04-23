@@ -4,8 +4,8 @@ services:
       context: ./backend
     ports:
       - "8000:8000"
-    env_file:
-      - ./backend/.env.production
+    environment:
+      ENV: production
     depends_on:
       - db
 
@@ -25,8 +25,6 @@ services:
       context: ./frontend
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
 
 volumes:
   db_data: # Define the db data volumes      

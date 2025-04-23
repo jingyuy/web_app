@@ -34,7 +34,7 @@ const LoginPage = () => {
                 setError(errorData.detail);
             }
         } catch (err) {
-            setError('An error occurred. Please try again.' + err);
+            setError('An error occurred. Please try again. url: ' + process.env.REACT_APP_BACKEND_URL + " error: " + err);
         }
     };
 

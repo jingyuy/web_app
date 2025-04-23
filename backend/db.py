@@ -1,7 +1,17 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 import os
+
+# Check the environment (default to "development")
+ENV = os.getenv("ENV", "development")
+
+# Explicitly load the correct .env file
+if ENV == "production":
+    load_dotenv(".env.production")
+else:
+    load_dotenv(".env.development")  # Force .env.development for local development
 
 # Database URL (replace with your actual database URL)
 DATABASE_URL = os.getenv("DATABASE_URL")

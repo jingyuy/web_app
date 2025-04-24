@@ -10,4 +10,4 @@ appId: com.mobile_app
 - tapOn:
     id: "login"
 - extendedWaitUntil:
-    visible: "Welcome to the authenticated home page!!"
+    visible: "Welcome to the authenticated home page!"

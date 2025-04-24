@@ -1,0 +1,13 @@
+appId: com.mobile_app
+---
+- launchApp
+- tapOn:
+    id: "email"
+- inputText: "test@example.com"
+- tapOn:
+    id: "password"
+- inputText: "password123"
+- tapOn:
+    id: "login"
+- extendedWaitUntil:
+    visible: "Welcome to the authenticated home page!!"

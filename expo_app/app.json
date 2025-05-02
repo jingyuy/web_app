@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "expo_app",
+    "slug": "expo_app",
+    "version": "1.0.0",
+    "newArchEnabled": true,
+    "extra": {
+      "eas": {
+        "projectId": "36835b31-697f-42f1-932e-ce7de30b50f8"
+      }
+    }
+  }
+}

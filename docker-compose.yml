@@ -20,11 +20,5 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data # Mount volume for persistence
 
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"
-
 volumes:
   db_data: # Define the db data volumes      

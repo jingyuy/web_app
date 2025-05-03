@@ -1,5 +1,5 @@
 # Sample Maestro flow for web app automation
-url: "http://127.0.0.1:8081"
+url: "http://localhost:19006"
 ---
 - launchApp
 - tapOn:

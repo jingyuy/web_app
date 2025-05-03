@@ -2,22 +2,16 @@
 url: "http://localhost:19006"
 ---
 - launchApp
-- tapOn:
-    id: "email"
+- tapOn: "Email"
 - inputText: "test@example.com"
-- tapOn:
-    id: "password"
+- tapOn: "Password"
 - inputText: "password123"
-- tapOn:
-    id: "login"
-- extendedWaitUntil:
-    visible: "Welcome to the authenticated home page!"
+- tapOn: "LOGIN"
+- assertVisible: "Welcome to the authenticated home page! User: test@example.com"
 - tapOn: "Profile"
-- extendedWaitUntil:
-    visible: "Welcome to the authenticated home page!"
+- assertVisible: "Welcome to the authenticated home page! User: test@example.com"
 - tapOn: "Settings"
-- extendedWaitUntil:
-    visible: "Sign Out"
+- assertVisible: "Welcome to the authenticated home page! User: test@example.com"
+- assertVisible: "Sign Out"
 - tapOn: "Sign Out"
-- extendedWaitUntil:
-    visible: "LOGIN"
+- assertVisible: "LOGIN"

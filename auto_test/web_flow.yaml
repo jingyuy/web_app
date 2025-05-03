@@ -17,4 +17,7 @@ url: "http://localhost:19006"
     visible: "Welcome to the authenticated home page!"
 - tapOn: "Settings"
 - extendedWaitUntil:
-    visible: "Welcome to the authenticated home page!"
+    visible: "Sign Out"
+- tapOn: "Sign Out"
+- extendedWaitUntil:
+    visible: "LOGIN"

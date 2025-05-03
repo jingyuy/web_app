@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import axios from 'axios';
 import env from '../config/env';
+import { useAuth } from '../context/AuthContext';
 
 const Tab = createBottomTabNavigator();
 
-function HomeTab({ token }) {
+function HomeTab() {
+  const { token, signOut } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,6 +20,9 @@ function HomeTab({ token }) {
         });
         setData(response.data);
       } catch (error) {
+        if (error.response?.status === 401) {
+          signOut(); // This will redirect to login
+        }
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
@@ -25,7 +30,7 @@ function HomeTab({ token }) {
     };
 
     fetchData();
-  }, [token]);
+  }, [token, signOut]);
 
   if (loading) {
     return <ActivityIndicator style={styles.loader} />;
@@ -39,7 +44,8 @@ function HomeTab({ token }) {
   );
 }
 
-function ProfileTab({ token }) {
+function ProfileTab() {
+  const { token, signOut } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -51,6 +57,9 @@ function ProfileTab({ token }) {
         });
         setData(response.data);
       } catch (error) {
+        if (error.response?.status === 401) {
+          signOut(); // This will redirect to login
+        }
         console.error('Error fetching profile data:', error);
       } finally {
         setLoading(false);
@@ -58,7 +67,7 @@ function ProfileTab({ token }) {
     };
 
     fetchData();
-  }, [token]);
+  }, [token, signOut]);
 
   if (loading) {
     return <ActivityIndicator style={styles.loader} />;
@@ -72,7 +81,8 @@ function ProfileTab({ token }) {
   );
 }
 
-function SettingsTab({ token }) {
+function SettingsTab() {
+  const { token, signOut } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -84,6 +94,9 @@ function SettingsTab({ token }) {
         });
         setData(response.data);
       } catch (error) {
+        if (error.response?.status === 401) {
+          signOut(); // This will redirect to login
+        }
         console.error('Error fetching settings data:', error);
       } finally {
         setLoading(false);
@@ -91,7 +104,7 @@ function SettingsTab({ token }) {
     };
 
     fetchData();
-  }, [token]);
+  }, [token, signOut]);
 
   if (loading) {
     return <ActivityIndicator style={styles.loader} />;
@@ -101,32 +114,37 @@ function SettingsTab({ token }) {
     <View style={styles.container}>
       <Text style={styles.text}>Settings Data:</Text>
       <Text>{data.data}</Text>
+      <TouchableOpacity 
+        style={styles.signOutButton} 
+        onPress={signOut}
+        testID="signout-button"
+      >
+        <Text style={styles.signOutText}>Sign Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-export default function HomeScreen({ route }) {
-  const { token } = route.params;
-
+export default function HomeScreen() {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
         options={{ tabBarTestID: 'home-tab' }}
       >
-        {() => <HomeTab token={token} />}
+        {() => <HomeTab />}
       </Tab.Screen>
       <Tab.Screen
         name="Profile"
         options={{ tabBarTestID: 'profile-tab' }}
       >
-        {() => <ProfileTab token={token} />}
+        {() => <ProfileTab />}
       </Tab.Screen>
       <Tab.Screen
         name="Settings"
         options={{ tabBarTestID: 'settings-tab' }}
       >
-        {() => <SettingsTab token={token} />}
+        {() => <SettingsTab />}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -146,5 +164,17 @@ const styles = StyleSheet.create({
   loader: {
     flex: 1,
     justifyContent: 'center',
+  },
+  signOutButton: {
+    backgroundColor: '#ff4444',
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  signOutText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

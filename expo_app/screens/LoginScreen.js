@@ -2,21 +2,17 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, Platform } from 'react-native';
 import axios from 'axios';
 import env from '../config/env';
+import { useAuth } from '../context/AuthContext';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   const handleLogin = async () => {
     try {
       const response = await axios.post(`${env.backendUrl}/login`, { email, password });
-      if (response.status === 200) {
-        const token = response.data.token;
-        navigation.navigate('Home', { token });
-      } else {
-        Alert.alert('Login Failed', `Error: ${response.status} - ${response.data.message || 'Unexpected error'}`);
-      }
+      signIn(response.data.token);
     } catch (error) {
       if (error.response) {
         // Handle HTTP errors

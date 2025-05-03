@@ -11,3 +11,9 @@ appId: com.expoapp
     id: "login"
 - extendedWaitUntil:
     visible: "Welcome to the authenticated home page!"
+- tapOn: "Profile"
+- extendedWaitUntil:
+    visible: "Welcome to the authenticated home page!"
+- tapOn: "Settings"
+- extendedWaitUntil:
+    visible: "Welcome to the authenticated home page!"
